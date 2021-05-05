@@ -4,9 +4,11 @@ import java.util.ArrayList;
 
 import nLayeredDemo.business.abstracts.ProductService;
 import nLayeredDemo.business.concretes.ProductManager;
+import nLayeredDemo.core.JLoggerManagerAdapter;
 import nLayeredDemo.dataAccess.concretes.AbcProductDao;
 import nLayeredDemo.dataAccess.concretes.HibernateProductDao;
 import nLayeredDemo.entities.concretes.Product;
+import nLayeredDemo.jLogger.JLoggerManager;
 
 public class Main {
 
@@ -25,13 +27,16 @@ public class Main {
 
 		// projede entitiler hairc new leme varsa porblem yasarsýn
 		// TODO :Spirng IOC ile iyilestirelecek
-		ProductService productService = new ProductManager(new HibernateProductDao());
+		ProductService productService = new ProductManager(new HibernateProductDao(),new JLoggerManagerAdapter());
 		// Burada manager türünde tanýmlamadýk. Cünkü managerlara interdfaceler
 		// üzerinden gidilir
 		productService.add(product);
 
-		ProductService productService2 = new ProductManager(new AbcProductDao());
+		ProductService productService2 = new ProductManager(new AbcProductDao(),
+				new JLoggerManagerAdapter());
 		productService2.add(product);
+		
+		//Dýs servisler core katmaýnan eklenir.Adaptasyon ile gerçelþtirilir
 	}
 
 }
